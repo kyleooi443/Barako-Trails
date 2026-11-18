@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Batangas">
+  <rect width="64" height="64" rx="13" fill="#123B50"/>
+  <path fill="#E9D9BE" fill-rule="evenodd" d="M20 14H34C42.5 14 47.5 18 47.5 23.8C47.5 28.2 45 31 41 32C46.5 33 50 36.5 50 41.2C50 46.8 45 50 36.5 50H20ZM26.2 18.8H34C38.8 18.8 41.3 21 41.3 23.9C41.3 26.8 38.8 29 34 29H26.2ZM26.2 32.4H35C40.3 32.4 43.2 34.9 43.2 39C43.2 43.1 40.3 45.6 35 45.6H26.2Z"/>
+  <rect x="17.5" y="14" width="13" height="2.6" rx="0.6" fill="#E9D9BE"/>
+  <rect x="17.5" y="47.4" width="13" height="2.6" rx="0.6" fill="#E9D9BE"/>
+</svg>
