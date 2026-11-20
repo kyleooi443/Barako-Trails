@@ -36,7 +36,6 @@ assets/icons/favicon.svg
 ## Content notes
 
 - Taal Volcano Island is a **Permanent Danger Zone**; the site presents it as a view from safe vantage points.
-- Budget tiers are qualitative categories, not quoted prices.
 - Travel times, routes, and schedules change; the site asks visitors to confirm locally.
 - Contact details in the footer are clearly labelled placeholders.
 - This is an independent editorial concept and is not affiliated with the Provincial Government of Batangas.
