@@ -304,10 +304,6 @@ svg {
   line-height: 1.8;
 }
 
-.text-wrap {
-  text-wrap: pretty;
-}
-
 /* ==========================================================================
    04. Buttons & links
    ========================================================================== */
@@ -488,16 +484,6 @@ svg {
   font-size: 1.24rem;
   font-weight: 600;
   letter-spacing: 0.17em;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.brand-sub {
-  margin-top: 6px;
-  opacity: 0.62;
-  font-size: 0.45rem;
-  font-weight: 500;
-  letter-spacing: 0.22em;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -3288,10 +3274,6 @@ dialog::backdrop {
     max-width: 640px;
   }
 
-  .market-note {
-    max-width: none;
-  }
-
   .culture-feature {
     aspect-ratio: 16 / 10;
   }
@@ -3436,10 +3418,6 @@ dialog::backdrop {
 
   .brand-word {
     font-size: 1.1rem;
-  }
-
-  .brand-sub {
-    font-size: 0.4rem;
   }
 
   .hero {
@@ -3747,10 +3725,6 @@ dialog::backdrop {
 
 /* ---- Small phone ---- */
 @media (max-width: 480px) {
-  .brand-sub {
-    display: none;
-  }
-
   .hero-title {
     font-size: clamp(2.7rem, 11.5vw, 4.6rem);
   }
