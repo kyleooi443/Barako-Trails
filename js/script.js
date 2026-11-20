@@ -193,8 +193,6 @@
 
   const nav = $('#primaryNav');
   const menuToggle = $('#menuToggle');
-  const menuToggleLabel = menuToggle ? $('.menu-toggle-label', menuToggle) : null;
-  const desktopQuery = window.matchMedia('(min-width: 1181px)');
 
   function openMobileNav() {
     if (!nav || !menuToggle) return;
@@ -202,7 +200,6 @@
     document.body.classList.add('nav-open');
     menuToggle.setAttribute('aria-expanded', 'true');
     menuToggle.setAttribute('aria-label', 'Close menu');
-    if (menuToggleLabel) menuToggleLabel.textContent = 'Close';
 
     /* Wait for the visibility transition to begin before moving focus;
        browsers can refuse focus on a still-hidden element. */
@@ -218,7 +215,6 @@
     document.body.classList.remove('nav-open');
     menuToggle.setAttribute('aria-expanded', 'false');
     menuToggle.setAttribute('aria-label', 'Open menu');
-    if (menuToggleLabel) menuToggleLabel.textContent = 'Menu';
 
     if (restoreFocus) menuToggle.focus({ preventScroll: true });
   }
@@ -262,16 +258,6 @@
       if (!document.querySelector('dialog[open]')) closeMobileNav();
     }
   });
-
-  const handleDesktopChange = (event) => {
-    if (event.matches) closeMobileNav(false);
-  };
-
-  if (typeof desktopQuery.addEventListener === 'function') {
-    desktopQuery.addEventListener('change', handleDesktopChange);
-  } else if (typeof desktopQuery.addListener === 'function') {
-    desktopQuery.addListener(handleDesktopChange);
-  }
 
   /* ==========================================================================
      04. Smooth anchor scrolling & active section
