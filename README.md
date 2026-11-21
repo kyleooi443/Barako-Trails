@@ -1,4 +1,4 @@
-# Batangas — Beyond the Ordinary
+# Barako Trails
 
 An editorial travel-magazine concept site for Batangas, Philippines. Built with plain HTML5, CSS3, and vanilla JavaScript — no frameworks, build step, package manager, or backend.
 
