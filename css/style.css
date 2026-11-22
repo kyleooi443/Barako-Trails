@@ -509,7 +509,7 @@ svg {
   opacity: 0;
   visibility: hidden;
   transform: translateY(-14px);
-  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), visibility 0.4s;
+  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), visibility 0.3s;
 }
 
 body.nav-open .primary-nav {
@@ -518,12 +518,14 @@ body.nav-open .primary-nav {
   transform: translateY(0);
 }
 
+body.nav-open .site-header.is-scrolled,
 body.nav-open .site-header {
   background: transparent;
   color: var(--white);
   box-shadow: none;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
+  transition: background-color 0.45s var(--ease), color 0.45s var(--ease), padding 0.45s var(--ease), box-shadow 0.45s var(--ease), backdrop-filter 0s;
 }
 
 .nav-list {

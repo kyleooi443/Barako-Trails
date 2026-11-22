@@ -191,10 +191,13 @@
 
   const nav = $('#primaryNav');
   const menuToggle = $('#menuToggle');
+  let navScrollY = 0;
 
   function openMobileNav() {
     if (!nav || !menuToggle) return;
 
+    navScrollY = window.scrollY;
+    document.body.style.top = `-${navScrollY}px`;
     document.body.classList.add('nav-open');
     menuToggle.setAttribute('aria-expanded', 'true');
     menuToggle.setAttribute('aria-label', 'Close menu');
@@ -211,6 +214,8 @@
     if (!menuToggle || !document.body.classList.contains('nav-open')) return;
 
     document.body.classList.remove('nav-open');
+    document.body.style.top = '';
+    window.scrollTo({ top: navScrollY, left: 0, behavior: 'instant' });
     menuToggle.setAttribute('aria-expanded', 'false');
     menuToggle.setAttribute('aria-label', 'Open menu');
 
