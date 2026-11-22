@@ -105,7 +105,11 @@ body {
 
 body.nav-open,
 body.modal-open {
+  position:fixed;
+  left:0;
+  right:0;
   overflow: hidden;
+  overflow-y: scroll;
 }
 
 [tabindex="-1"]:focus {
@@ -454,9 +458,10 @@ svg {
   padding: 11px 0;
   background: rgba(248, 248, 245, 0.94);
   color: var(--ocean-ink);
-  box-shadow: 0 1px 0 rgba(18, 59, 80, 0.1);
+  box-shadow: 0 2px 10px rgba(18, 59, 80, 0.1);
   -webkit-backdrop-filter: blur(16px);
   backdrop-filter: blur(16px);
+
 }
 
 .nav-shell {
