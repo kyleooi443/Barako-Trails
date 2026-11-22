@@ -1676,6 +1676,77 @@ body.nav-open .menu-toggle span:nth-child(3) {
   margin-top: 4px;
 }
 
+/* Draft state for the trip planner */
+.draft-badge {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 3px 8px;
+  border: 1px dashed var(--rust);
+  color: var(--rust);
+  font-size: 0.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
+.guide.is-draft .guide-note {
+  border-style: dashed;
+}
+
+.planner.is-draft {
+  border-style: dashed;
+  background: rgba(248, 248, 245, 0.6);
+}
+
+.planner.is-draft .planner-form {
+  opacity: 0.6;
+}
+
+.chip-row input:disabled + label {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.chip-row input:disabled:checked + label {
+  opacity: 0.85;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+.planner-result.is-draft {
+  border-left-style: dashed;
+  border-left-color: var(--ink-45);
+  background: rgba(248, 248, 245, 0.55);
+}
+
+.planner-result.is-draft h4 {
+  color: var(--ink-55);
+}
+
+.draft-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.draft-lines span {
+  height: 10px;
+  background: rgba(32, 35, 34, 0.05);
+  border-bottom: 1px dashed var(--line-strong);
+}
+
+.draft-lines span:nth-child(2) {
+  width: 82%;
+}
+
+.draft-lines span:nth-child(3) {
+  width: 64%;
+}
+
 .planner-result {
   margin-top: 28px;
   padding: 22px;

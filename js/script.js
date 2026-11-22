@@ -11,9 +11,8 @@
    04. Anchor scrolling & active section
    05. Destination filtering
    06. Destination detail modal
-   07. Interactive trip planner
-   08. Gallery lightbox
-   09. Photo credits & footer year
+   07. Gallery lightbox
+   08. Photo credits & footer year
    ========================================================================== */
 
 (() => {
@@ -394,7 +393,6 @@
 
   const destinations = {
     taal: {
-      plannerValue: 'nature',
       tag: 'Nature',
       location: 'Talisay · Taal Lake',
       title: 'Taal Volcano',
@@ -411,7 +409,6 @@
     },
 
     laiya: {
-      plannerValue: 'beach',
       tag: 'Beaches',
       location: 'San Juan · Tayabas Bay',
       title: 'Laiya Beach',
@@ -428,7 +425,6 @@
     },
 
     masasa: {
-      plannerValue: 'beach',
       tag: 'Beaches',
       location: 'Tingloy · Maricaban Island',
       title: 'Masasa Beach',
@@ -445,7 +441,6 @@
     },
 
     fortune: {
-      plannerValue: 'nature',
       tag: 'Nature',
       location: 'Nasugbu · Batangas',
       title: 'Fortune Island',
@@ -462,7 +457,6 @@
     },
 
     batulao: {
-      plannerValue: 'mountain',
       tag: 'Mountains',
       location: 'Nasugbu · Batangas',
       title: 'Mt. Batulao',
@@ -479,7 +473,6 @@
     },
 
     maculot: {
-      plannerValue: 'mountain',
       tag: 'Mountains',
       location: 'Cuenca · Batangas',
       title: 'Mt. Maculot',
@@ -496,7 +489,6 @@
     },
 
     caleruega: {
-      plannerValue: 'heritage',
       tag: 'Heritage',
       location: 'Nasugbu · Batangas',
       title: 'Caleruega Church',
@@ -513,7 +505,6 @@
     },
 
     verde: {
-      plannerValue: 'nature',
       tag: 'Nature',
       location: 'Batangas City · Verde Island Passage',
       title: 'Verde Island',
@@ -538,7 +529,6 @@
   const destinationDesc = $('#destinationDesc');
   const destinationHighlights = $('#destinationHighlights');
   const destinationNote = $('#destinationNote');
-  const planFromDestination = $('#planFromDestination');
 
   let activeDestination = null;
 
@@ -582,227 +572,8 @@
     });
   });
 
-  if (planFromDestination) {
-    planFromDestination.addEventListener('click', () => {
-      if (!activeDestination) return;
-
-      const destination = destinations[activeDestination];
-      const landscapeInput = $(`input[name="landscape"][value="${destination.plannerValue}"]`);
-
-      if (landscapeInput) {
-        landscapeInput.checked = true;
-        renderItinerary();
-      }
-
-      /* Do not pull focus back to the card that opened the modal. */
-      if (destinationModal) destinationModal._trigger = null;
-      closeDialog(destinationModal);
-
-      scrollToElement($('#tripPlanner'));
-
-      if (landscapeInput) {
-        window.setTimeout(() => landscapeInput.focus({ preventScroll: true }), 350);
-      }
-    });
-  }
-
   /* ==========================================================================
-     07. Interactive trip planner
-     ========================================================================== */
-
-  const plannerForm = $('#tripPlanner');
-  const plannerResult = $('#plannerResult');
-
-  const dayMeta = {
-    short: { label: '1–2 days', title: '1–2 day' },
-    mid: { label: '3–4 days', title: '3–4 day' },
-    long: { label: '5+ days', title: '5+ day' }
-  };
-
-  const landscapeMeta = {
-    beach: { title: 'coastal escape' },
-    mountain: { title: 'mountain escape' },
-    heritage: { title: 'heritage trail' },
-    nature: { title: 'lake and island route' },
-    food: { title: 'flavour trail' }
-  };
-
-  const paceMeta = {
-    slow: {
-      label: 'Slow & scenic',
-      tip: 'Leave room between stops. The best moments here are usually the unplanned ones.'
-    },
-    balanced: {
-      label: 'Balanced',
-      tip: 'A mix of movement and rest, with one flexible afternoon to follow your curiosity.'
-    },
-    adventure: {
-      label: 'Adventure-led',
-      tip: 'Start early, pack light, and keep an eye on sea and trail conditions. Build in a backup plan.'
-    }
-  };
-
-  const itineraries = {
-    beach: {
-      short: [
-        { name: 'Laiya Beach', detail: 'San Juan · calm water and an easy shoreline' },
-        { name: 'Masasa Beach', detail: 'Tingloy · a short boat ride to a quieter shore' }
-      ],
-      mid: [
-        { name: 'Laiya Beach', detail: 'San Juan · settle in, swim, and stay for sunset' },
-        { name: 'Masasa Beach', detail: 'Tingloy · snorkel the shallows and walk the far shore' },
-        { name: 'Fortune Island', detail: 'Nasugbu · cliffs, ruins, and clear water' }
-      ],
-      long: [
-        { name: 'Laiya Beach', detail: 'San Juan · two unhurried nights by the bay' },
-        { name: 'Calayo Beach', detail: 'Nasugbu · a slower, less developed stretch of coast' },
-        { name: 'Masasa Beach', detail: 'Tingloy · an early boat and a full island day' },
-        { name: 'Anilao', detail: 'Mabini · snorkel or dive the Verde Island Passage' },
-        { name: 'Fortune Island', detail: 'Nasugbu · end with cliffs and a ruined lighthouse' }
-      ]
-    },
-
-    mountain: {
-      short: [
-        { name: 'Mt. Batulao', detail: 'Nasugbu · rolling ridges on an exposed day trail' },
-        { name: 'Taal Lake viewpoint', detail: 'Agoncillo · a slow finish above the water' }
-      ],
-      mid: [
-        { name: 'Mt. Batulao', detail: 'Nasugbu · an early start for the ridgelines' },
-        { name: 'Mt. Maculot', detail: 'Cuenca · the Rockies, with Taal Lake below' },
-        { name: 'Taal Lake viewpoint', detail: 'Agoncillo · a gentler morning after the climbs' }
-      ],
-      long: [
-        { name: 'Mt. Batulao', detail: 'Nasugbu · ridges, exposure, and wide views' },
-        { name: 'Mt. Maculot', detail: 'Cuenca · a steep climb to the Rockies' },
-        { name: 'Gulugod Baboy', detail: 'Mabini · grassland ridges above the coast' },
-        { name: 'Mt. Manabu', detail: 'Santo Tomas · a forested walk and simple campsite' },
-        { name: 'Taal Lake viewpoint', detail: 'Agoncillo · an easy last morning by the lake' }
-      ]
-    },
-
-    heritage: {
-      short: [
-        { name: 'Taal Heritage Town', detail: 'Taal · ancestral houses and old streets' },
-        { name: 'Basilica of St. Martin of Tours', detail: 'Taal · the hilltop landmark of the old town' }
-      ],
-      mid: [
-        { name: 'Taal Heritage Town', detail: 'Taal · capiz windows and quiet lanes' },
-        { name: 'Basilica of St. Martin of Tours', detail: "Taal · the town's great stone landmark" },
-        { name: 'Marcela Agoncillo Ancestral House', detail: 'Taal · a window into 19th-century life' },
-        { name: 'Caleruega Church', detail: 'Nasugbu · gardens and a quiet hilltop chapel' }
-      ],
-      long: [
-        { name: 'Taal Heritage Town', detail: 'Taal · a slow day of streets and stories' },
-        { name: 'Basilica of St. Martin of Tours', detail: 'Taal · art, devotion, and a wide nave' },
-        { name: 'Marcela Agoncillo Ancestral House', detail: 'Taal · the home of a flag-maker' },
-        { name: 'Caleruega Church', detail: 'Nasugbu · a retreat in the hills' },
-        { name: 'Casa de Segunda', detail: 'Lipa · a preserved 19th-century home' },
-        { name: 'San Sebastian Cathedral', detail: 'Lipa · a landmark in coffee country' }
-      ]
-    },
-
-    nature: {
-      short: [
-        { name: 'Taal Lake viewpoint', detail: 'Agoncillo · look across the caldera from the shore' },
-        { name: 'Fortune Island', detail: 'Nasugbu · limestone cliffs and a ruined lighthouse' }
-      ],
-      mid: [
-        { name: 'Taal Lake viewpoint', detail: 'Agoncillo · a calm morning above the lake' },
-        { name: 'Anilao', detail: 'Mabini · reefs, dive boats, and warm water' },
-        { name: 'Verde Island', detail: 'Batangas City · a boat crossing into the passage' },
-        { name: 'Fortune Island', detail: 'Nasugbu · cliffs and clear water to finish' }
-      ],
-      long: [
-        { name: 'Taal Lake viewpoint', detail: 'Agoncillo · the caldera in soft morning light' },
-        { name: 'Anilao', detail: 'Mabini · a full day on the reefs' },
-        { name: 'Verde Island', detail: 'Batangas City · dive or snorkel the passage' },
-        { name: 'Fortune Island', detail: 'Nasugbu · cliffs, ruins, and a picnic shore' },
-        { name: 'Calayo Beach', detail: 'Nasugbu · a quiet coastal finish' }
-      ]
-    },
-
-    food: {
-      short: [
-        { name: 'Taal public market', detail: 'Taal · panutsa and local sweets' },
-        { name: 'Lomi in Lemery', detail: 'Lemery · the thick, glossy Batangas classic' }
-      ],
-      mid: [
-        { name: 'Kapeng Barako', detail: 'Lipa · a strong cup in coffee country' },
-        { name: 'Lomi in Lemery', detail: 'Lemery · order it piping hot' },
-        { name: 'Taal public market', detail: 'Taal · sweets, preserves, and pasalubong' },
-        { name: 'Bulalo lunch', detail: 'Batangas · a shared table and a long simmer' }
-      ],
-      long: [
-        { name: 'Kapeng Barako', detail: 'Lipa · start slow with a strong cup' },
-        { name: 'Lomi in Lemery', detail: 'Lemery · a bowl that counts as a meal' },
-        { name: 'Gotong Batangas', detail: 'Batangas City · a gingery local breakfast' },
-        { name: 'Taal public market', detail: 'Taal · panutsa and market finds' },
-        { name: 'Bulalo lunch', detail: 'Batangas · the centrepiece of a shared table' },
-        { name: 'Sinaing na Tulingan', detail: 'Batangas · bullet tuna, slow-cooked in clay' }
-      ]
-    }
-  };
-
-  function renderItinerary() {
-    if (!plannerForm || !plannerResult) return;
-
-    const landscapeInput = $('input[name="landscape"]:checked', plannerForm);
-    const daysInput = $('input[name="days"]:checked', plannerForm);
-    const paceInput = $('input[name="pace"]:checked', plannerForm);
-
-    const landscape = landscapeInput ? landscapeInput.value : 'beach';
-    const days = daysInput ? daysInput.value : 'mid';
-    const pace = paceInput ? paceInput.value : 'balanced';
-
-    const stops = (itineraries[landscape] && itineraries[landscape][days]) || [];
-    const landscapeInfo = landscapeMeta[landscape] || landscapeMeta.beach;
-    const dayInfo = dayMeta[days] || dayMeta.mid;
-    const paceInfo = paceMeta[pace] || paceMeta.balanced;
-
-    const title = `A ${dayInfo.title} ${landscapeInfo.title}`;
-    const sub = `${paceInfo.label} pace · ${stops.length} suggested stop${
-      stops.length === 1 ? '' : 's'
-    }`;
-
-    const stopMarkup = stops
-      .map(
-        (stop, index) => `
-          <li>
-            <span>${pad(index + 1)}</span>
-            <div>
-              <strong>${stop.name}</strong>
-              <small>${stop.detail}</small>
-            </div>
-          </li>`
-      )
-      .join('');
-
-    plannerResult.innerHTML = `
-      <p class="result-kicker">A starting point</p>
-      <h4>${title}</h4>
-      <p class="result-sub">${sub}</p>
-      <ol class="result-stops">${stopMarkup}</ol>
-      <p class="result-note">${paceInfo.tip} Suggestions only — confirm schedules, permits, sea conditions, and current rates locally.</p>
-    `;
-  }
-
-  if (plannerForm) {
-    plannerForm.addEventListener('submit', (event) => {
-      event.preventDefault();
-      renderItinerary();
-    });
-
-    /* The itinerary stays live as people change their choices. */
-    plannerForm.addEventListener('change', () => {
-      renderItinerary();
-    });
-
-    renderItinerary();
-  }
-
-  /* ==========================================================================
-     08. Gallery lightbox
+     07. Gallery lightbox
      ========================================================================== */
 
   const galleryItems = $$('.gallery-item');
@@ -912,7 +683,7 @@
   }
 
   /* ==========================================================================
-     09. Photo credits & footer year
+     08. Photo credits & footer year
      ========================================================================== */
 
   /* One entry per unique photograph used on the page. */

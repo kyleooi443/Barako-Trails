@@ -558,13 +558,13 @@
 
     <!-- ============================== TRAVEL GUIDE / PLANNER ============================== -->
 
-    <section class="section guide" id="guide">
+    <section class="section guide is-draft" id="guide">
       <div class="shell">
         <div class="guide-layout">
           <aside class="guide-aside">
             <p class="section-label">Travel guide</p>
             <h2 class="display">Start planning<br><em>your adventure.</em></h2>
-            <p class="guide-intro">Tell us how you like to travel. We'll sketch a starting point — then you can make it yours.</p>
+            <p class="guide-intro">This trip planner is still being drafted. Check back soon for a route to start with.</p>
 
             <figure class="guide-figure">
               <img src="assets/images/gallery-jeepney.jpg" alt="A traditional jeepney on the Batangas City to Lobo route" width="1280" height="855" loading="lazy" decoding="async">
@@ -576,9 +576,9 @@
             </div>
           </aside>
 
-          <div class="planner">
+          <div class="planner is-draft">
             <div class="planner-head">
-              <p class="planner-eyebrow">Interactive trip planner</p>
+              <p class="planner-eyebrow">Interactive trip planner <span class="draft-badge">Draft — coming soon</span></p>
               <h3>Build your <em>Batangas.</em></h3>
               <p>Three choices. A route to begin with.</p>
             </div>
@@ -587,19 +587,19 @@
               <fieldset class="planner-field">
                 <legend><span>01</span> Choose your landscape</legend>
                 <div class="chip-row">
-                  <input type="radio" name="landscape" id="landscape-beach" value="beach" checked>
+                  <input type="radio" name="landscape" id="landscape-beach" value="beach" checked disabled>
                   <label for="landscape-beach">Beaches</label>
 
-                  <input type="radio" name="landscape" id="landscape-mountain" value="mountain">
+                  <input type="radio" name="landscape" id="landscape-mountain" value="mountain" disabled>
                   <label for="landscape-mountain">Mountains</label>
 
-                  <input type="radio" name="landscape" id="landscape-heritage" value="heritage">
+                  <input type="radio" name="landscape" id="landscape-heritage" value="heritage" disabled>
                   <label for="landscape-heritage">Heritage</label>
 
-                  <input type="radio" name="landscape" id="landscape-nature" value="nature">
+                  <input type="radio" name="landscape" id="landscape-nature" value="nature" disabled>
                   <label for="landscape-nature">Nature &amp; islands</label>
 
-                  <input type="radio" name="landscape" id="landscape-food" value="food">
+                  <input type="radio" name="landscape" id="landscape-food" value="food" disabled>
                   <label for="landscape-food">Food &amp; culture</label>
                 </div>
               </fieldset>
@@ -607,13 +607,13 @@
               <fieldset class="planner-field">
                 <legend><span>02</span> How many days?</legend>
                 <div class="chip-row">
-                  <input type="radio" name="days" id="days-short" value="short">
+                  <input type="radio" name="days" id="days-short" value="short" disabled>
                   <label for="days-short">1–2 days</label>
 
-                  <input type="radio" name="days" id="days-mid" value="mid" checked>
+                  <input type="radio" name="days" id="days-mid" value="mid" checked disabled>
                   <label for="days-mid">3–4 days</label>
 
-                  <input type="radio" name="days" id="days-long" value="long">
+                  <input type="radio" name="days" id="days-long" value="long" disabled>
                   <label for="days-long">5+ days</label>
                 </div>
               </fieldset>
@@ -621,31 +621,26 @@
               <fieldset class="planner-field">
                 <legend><span>03</span> What is your pace?</legend>
                 <div class="chip-row">
-                  <input type="radio" name="pace" id="pace-slow" value="slow">
+                  <input type="radio" name="pace" id="pace-slow" value="slow" disabled>
                   <label for="pace-slow">Slow &amp; scenic</label>
 
-                  <input type="radio" name="pace" id="pace-balanced" value="balanced" checked>
+                  <input type="radio" name="pace" id="pace-balanced" value="balanced" checked disabled>
                   <label for="pace-balanced">Balanced</label>
 
-                  <input type="radio" name="pace" id="pace-adventure" value="adventure">
+                  <input type="radio" name="pace" id="pace-adventure" value="adventure" disabled>
                   <label for="pace-adventure">Adventure-led</label>
                 </div>
               </fieldset>
 
-              <button class="btn btn--dark planner-submit" type="submit">Update my itinerary</button>
+              <button class="btn btn--dark planner-submit" type="submit" disabled>Update my itinerary</button>
             </form>
 
-            <div class="planner-result" id="plannerResult" aria-live="polite">
-
-              <p class="result-kicker">A starting point</p>
-              <h4>A 3–4 day coastal escape</h4>
-              <p class="result-sub">Balanced pace · 3 suggested stops</p>
-              <ol class="result-stops">
-                <li><span>01</span><div><strong>Laiya Beach</strong><small>San Juan · slow mornings by the bay</small></div></li>
-                <li><span>02</span><div><strong>Masasa Beach</strong><small>Tingloy · a boat ride and a quieter shore</small></div></li>
-                <li><span>03</span><div><strong>Fortune Island</strong><small>Nasugbu · cliffs, ruins, and clear water</small></div></li>
-              </ol>
-              <p class="result-note">Estimates and suggestions only. Check weather, boat schedules, and local advisories before you go.</p>
+            <div class="planner-result is-draft" id="plannerResult" aria-live="polite">
+              <p class="result-kicker">Draft placeholder</p>
+              <h4>Your itinerary goes here</h4>
+              <p class="result-sub">The planner is still being drafted.</p>
+              <div class="draft-lines" aria-hidden="true"><span></span><span></span><span></span></div>
+              <p class="result-note">Suggestions will appear here when the planner is finished.</p>
             </div>
           </div>
         </div>
@@ -877,7 +872,7 @@
         </div>
         <div class="modal-note" id="destinationNote"></div>
         <div class="modal-actions">
-          <button class="btn btn--dark" type="button" id="planFromDestination">Plan a trip here</button>
+          <button class="btn btn--dark" type="button" id="planFromDestination" disabled>Planner coming soon</button>
           <button class="btn btn--text" type="button" data-close-modal>Close</button>
         </div>
       </div>
