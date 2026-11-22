@@ -57,7 +57,7 @@
 
   /* Typography */
   --font-display: "Playfair Display", "Times New Roman", Georgia, serif;
-  --font-body: "DM Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-body: "Barlow", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
   /* Layout */
   --gutter: clamp(20px, 4.2vw, 72px);
