@@ -44,9 +44,12 @@
     document.body.classList.toggle('modal-open', hasOpenDialog);
   }
 
+  let savedScrollY = 0;
+
   function openDialog(dialog, trigger) {
     if (!dialog || dialog.open) return;
 
+    savedScrollY = window.scrollY;
     dialog._trigger = trigger || document.activeElement;
 
     if (supportsDialog) {
@@ -61,32 +64,27 @@
   function closeDialog(dialog) {
     if (!dialog || !dialog.open) return;
 
-    /* Capture the opener before the element leaves the top layer. Native
-       dialogs restore focus themselves, but Chrome does not when Escape is
-       routed through a `cancel` handler, so we always restore explicitly. */
     const trigger = dialog._trigger;
     dialog._trigger = null;
 
     if (supportsDialog) {
       dialog.close();
-      /* The close event is queued; unlock immediately so in-page
-         navigation can run in the same interaction. */
       syncScrollLock();
     } else {
       dialog.removeAttribute('open');
       syncScrollLock();
     }
 
+    window.scrollTo({ top: savedScrollY, left: 0, behavior: 'instant' });
+
     if (trigger && typeof trigger.focus === 'function' && document.contains(trigger)) {
-      /* Wait for the dialog's own focus bookkeeping to finish first.
-         setTimeout is used instead of rAF because rAF can be throttled
-         when the page is in the background, which would strand focus. */
       window.setTimeout(() => {
         if (dialog.open) return;
         trigger.focus({ preventScroll: true });
       }, 0);
     }
   }
+
 
   /* Native dialogs restore focus on close. This also handles backdrop clicks
      and keeps the scroll lock in sync for every dialog on the page. */
