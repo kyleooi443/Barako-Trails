@@ -3700,3 +3700,11 @@ dialog::backdrop {
     transform: none;
   }
 }
+* {
+  scrollbar-width: none; /* Firefox, Chrome 121+, Edge 121+ */
+  -ms-overflow-style: none; /* Older Edge / IE */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Safari and older Chrome/Edge */
+}
