@@ -8,13 +8,12 @@
    01. Helpers & shared state
    02. Sticky header, reading progress & back to top
    03. Mobile navigation
-   04. Smooth anchor scrolling & active section
-   05. Reveal-on-scroll & animated statistics
-   06. Destination filtering
-   07. Destination detail modal
-   08. Interactive trip planner
-   09. Gallery lightbox
-   10. Photo credits & footer year
+   04. Anchor scrolling & active section
+   05. Destination filtering
+   06. Destination detail modal
+   07. Interactive trip planner
+   08. Gallery lightbox
+   09. Photo credits & footer year
    ========================================================================== */
 
 (() => {
@@ -27,8 +26,6 @@
   const $ = (selector, context = document) => context.querySelector(selector);
   const $$ = (selector, context = document) => Array.from(context.querySelectorAll(selector));
 
-  const motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
-  const prefersReducedMotion = () => motionQuery.matches;
   const supportsDialog =
     typeof HTMLDialogElement !== 'undefined' &&
     typeof HTMLDialogElement.prototype.showModal === 'function';
@@ -178,10 +175,7 @@
 
   if (backToTop) {
     backToTop.addEventListener('click', () => {
-      window.scrollTo({
-        top: 0,
-        behavior: prefersReducedMotion() ? 'auto' : 'smooth'
-      });
+      window.scrollTo({ top: 0, behavior: 'auto' });
     });
   }
 
@@ -263,7 +257,7 @@
   });
 
   /* ==========================================================================
-     04. Smooth anchor scrolling & active section
+     04. Anchor scrolling & active section
      ========================================================================== */
 
   function getHeaderOffset() {
@@ -278,10 +272,7 @@
       (window.scrollY || document.documentElement.scrollTop) -
       getHeaderOffset();
 
-    window.scrollTo({
-      top: Math.max(0, top),
-      behavior: prefersReducedMotion() ? 'auto' : 'smooth'
-    });
+    window.scrollTo({ top: Math.max(0, top), behavior: 'auto' });
   }
 
   function scrollToHash(hash, updateHistory = true) {
@@ -291,10 +282,7 @@
     if (!target) return;
 
     if (hash === '#home') {
-      window.scrollTo({
-        top: 0,
-        behavior: prefersReducedMotion() ? 'auto' : 'smooth'
-      });
+      window.scrollTo({ top: 0, behavior: 'auto' });
     } else {
       scrollToElement(target);
     }
@@ -340,45 +328,7 @@
   });
 
   /* ==========================================================================
-     05. Reveal-on-scroll & animated statistics
-     ========================================================================== */
-
-  const revealElements = $$('[data-reveal]');
-
-  /* A gentle stagger for elements that share a grid or list. */
-  $$('.experience-list, .culture-chapters, .food-grid, .guide-facts').forEach((group) => {
-    const children = Array.from(group.children).filter((child) =>
-      child.hasAttribute('data-reveal')
-    );
-
-    children.forEach((child, index) => {
-      child.style.transitionDelay = `${Math.min(index * 70, 280)}ms`;
-    });
-  });
-
-  if ('IntersectionObserver' in window && !prefersReducedMotion()) {
-    const revealObserver = new IntersectionObserver(
-      (entries, observer) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        });
-      },
-      {
-        threshold: 0.1,
-        rootMargin: '0px 0px -7% 0px'
-      }
-    );
-
-    revealElements.forEach((element) => revealObserver.observe(element));
-  } else {
-    revealElements.forEach((element) => element.classList.add('is-visible'));
-  }
-
-  /* ==========================================================================
-     06. Destination filtering
+     05. Destination filtering
      ========================================================================== */
 
   const destinationGrid = $('#destinationGrid');
@@ -411,8 +361,6 @@
 
     destinationCards.forEach((card) => {
       card.hidden = !matching.includes(card);
-      card.classList.remove('is-animating');
-      card.style.animationDelay = '';
     });
 
     destinationGrid.dataset.visible = String(matching.length);
@@ -428,16 +376,6 @@
         matching.length === 1 ? '' : 's'
       }`;
     }
-
-    if (!prefersReducedMotion()) {
-      matching.forEach((card, index) => {
-        /* Force a fresh animation each time the filter changes. */
-        card.classList.remove('is-animating');
-        void card.offsetWidth;
-        card.style.animationDelay = `${index * 55}ms`;
-        card.classList.add('is-animating');
-      });
-    }
   }
 
   if (destinationGrid) {
@@ -448,17 +386,10 @@
         setDestinationFilter(button.dataset.filter || 'all');
       });
     });
-
-    destinationCards.forEach((card) => {
-      card.addEventListener('animationend', () => {
-        card.classList.remove('is-animating');
-        card.style.animationDelay = '';
-      });
-    });
   }
 
   /* ==========================================================================
-     07. Destination detail modal
+     06. Destination detail modal
      ========================================================================== */
 
   const destinations = {
@@ -660,7 +591,7 @@
 
       if (landscapeInput) {
         landscapeInput.checked = true;
-        renderItinerary({ animate: true });
+        renderItinerary();
       }
 
       /* Do not pull focus back to the card that opened the modal. */
@@ -676,7 +607,7 @@
   }
 
   /* ==========================================================================
-     08. Interactive trip planner
+     07. Interactive trip planner
      ========================================================================== */
 
   const plannerForm = $('#tripPlanner');
@@ -813,7 +744,7 @@
     }
   };
 
-  function renderItinerary({ animate = false } = {}) {
+  function renderItinerary() {
     if (!plannerForm || !plannerResult) return;
 
     const landscapeInput = $('input[name="landscape"]:checked', plannerForm);
@@ -854,31 +785,24 @@
       <ol class="result-stops">${stopMarkup}</ol>
       <p class="result-note">${paceInfo.tip} Suggestions only — confirm schedules, permits, sea conditions, and current rates locally.</p>
     `;
-
-    plannerResult.classList.remove('is-updated');
-
-    if (animate && !prefersReducedMotion()) {
-      void plannerResult.offsetWidth;
-      plannerResult.classList.add('is-updated');
-    }
   }
 
   if (plannerForm) {
     plannerForm.addEventListener('submit', (event) => {
       event.preventDefault();
-      renderItinerary({ animate: true });
+      renderItinerary();
     });
 
     /* The itinerary stays live as people change their choices. */
     plannerForm.addEventListener('change', () => {
-      renderItinerary({ animate: true });
+      renderItinerary();
     });
 
     renderItinerary();
   }
 
   /* ==========================================================================
-     09. Gallery lightbox
+     08. Gallery lightbox
      ========================================================================== */
 
   const galleryItems = $$('.gallery-item');
@@ -988,7 +912,7 @@
   }
 
   /* ==========================================================================
-     10. Photo credits & footer year
+     09. Photo credits & footer year
      ========================================================================== */
 
   /* One entry per unique photograph used on the page. */
