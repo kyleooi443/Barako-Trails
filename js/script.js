@@ -757,7 +757,7 @@
 
   buildCredits();
 
-  ['#openCredits', '#openCreditsFooter', '#openCreditsBottom'].forEach((selector) => {
+  ['#openCredits', '#openCreditsBottom'].forEach((selector) => {
     const trigger = $(selector);
 
     if (trigger) {

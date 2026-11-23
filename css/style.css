@@ -2090,7 +2090,7 @@ body.nav-open .menu-toggle span:nth-child(3) {
 
 .footer-columns {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 1fr);
   gap: clamp(22px, 3vw, 38px);
 }
 
@@ -2101,53 +2101,6 @@ body.nav-open .menu-toggle span:nth-child(3) {
   font-weight: 500;
   line-height: 1.4;
   text-transform: uppercase;
-}
-
-.footer-column ul {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.footer-column a,
-.footer-column .footer-credit-link {
-  color: var(--light-50);
-  font-size: 0.78rem;
-  line-height: 1.5;
-}
-
-.footer-column a:hover,
-.footer-column .footer-credit-link:hover {
-  color: var(--white);
-}
-
-.footer-credit-link {
-  padding: 0;
-  text-align: left;
-}
-
-.social-list a {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-
-.social-list a span {
-  display: grid;
-  width: 23px;
-  height: 23px;
-  place-items: center;
-  border: 1px solid var(--light-line);
-  color: var(--light-70);
-  font-size: 0.4rem;
-  font-weight: 500;
-  line-height: 1;
-}
-
-.social-list a:hover span {
-  background: var(--sand);
-  border-color: var(--sand);
-  color: var(--ocean-ink);
 }
 
 .footer-contact address {
@@ -2641,10 +2594,6 @@ dialog::backdrop {
     grid-template-columns: 1fr;
     gap: 46px;
   }
-
-  .footer-columns {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
 }
 
 /* ---- Tablet portrait ---- */
@@ -2716,10 +2665,6 @@ dialog::backdrop {
 
   .gallery-grid {
     grid-auto-rows: clamp(140px, 20vw, 220px);
-  }
-
-  .footer-columns {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
 
@@ -2884,15 +2829,6 @@ dialog::backdrop {
 
   .closing {
     min-height: 64vh;
-  }
-
-  .footer-columns {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 34px;
-  }
-
-  .footer-contact {
-    grid-column: span 2;
   }
 
   .footer-bottom {
@@ -3094,10 +3030,6 @@ dialog::backdrop {
     font-size: clamp(2.8rem, 10vw, 4.6rem);
   }
 
-  .footer-columns {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-
   .footer-bottom p {
     max-width: none;
   }
@@ -3188,15 +3120,6 @@ dialog::backdrop {
   .guide-facts {
     grid-template-columns: 1fr;
     gap: 28px;
-  }
-
-  .footer-columns {
-    grid-template-columns: 1fr;
-    gap: 28px;
-  }
-
-  .footer-contact {
-    grid-column: auto;
   }
 
   .closing-actions {
