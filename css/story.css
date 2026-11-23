@@ -197,16 +197,6 @@
     transform: translate3d(0, 0, 0);
   }
 
-  .has-story .scene-step > * {
-    transform: scale(0.985);
-    transform-origin: center center;
-    transition: transform 0.9s var(--ease);
-  }
-
-  .has-story .scene-step.is-active > * {
-    transform: scale(1);
-  }
-
   .has-story .scene-step.is-active .section-label {
     transition-delay: 0.04s;
   }
@@ -279,9 +269,11 @@
   @media (prefers-reduced-motion: no-preference) {
     .has-story {
       scroll-snap-type: y proximity;
+      scroll-padding-top: calc(var(--header-h, 82px) + 20px);
     }
 
-    .has-story .scene-step {
+    /* Snap at section boundaries so anchor navigation keeps its header offset. */
+    .has-story main > section {
       scroll-snap-align: start;
       scroll-snap-stop: normal;
     }
