@@ -159,3 +159,131 @@
     pointer-events: none;
   }
 }
+
+/* ==========================================================================
+   Motion choreography
+   --------------------------------------------------------------------------
+   Every rule below requires .has-story, which js/story.js only adds when
+   reduced motion is not requested. Without it, all content stays visible and
+   untransformed.
+   ========================================================================== */
+
+@media (prefers-reduced-motion: no-preference) {
+  .has-story .scene-visual img {
+    transform: translate3d(0, calc(var(--scene-progress, 0) * -24px), 0)
+      scale(calc(1 + var(--scene-progress, 0) * 0.04));
+    transform-origin: center center;
+    will-change: transform;
+  }
+
+  /* Keep the original hero zoom; parallax its wrapper so both motions layer. */
+  .has-story .hero .scene-visual .hero-media {
+    transform: translate3d(0, calc(var(--scene-progress, 0) * -18px), 0);
+    transition: opacity 0.6s var(--ease);
+  }
+
+  .has-story .hero .story-scene {
+    opacity: calc(1 - var(--scene-progress, 0) * 0.35);
+  }
+
+  .has-story .scene-step {
+    opacity: 0.4;
+    transform: translate3d(0, 30px, 0);
+    transition: opacity 0.7s var(--ease), transform 0.9s var(--ease);
+  }
+
+  .has-story .scene-step.is-active {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+
+  .has-story .scene-step > * {
+    transform: scale(0.985);
+    transform-origin: center center;
+    transition: transform 0.9s var(--ease);
+  }
+
+  .has-story .scene-step.is-active > * {
+    transform: scale(1);
+  }
+
+  .has-story .scene-step.is-active .section-label {
+    transition-delay: 0.04s;
+  }
+
+  .has-story .scene-step.is-active .display {
+    transition-delay: 0.09s;
+  }
+
+  .has-story .scene-step.is-active .section-note,
+  .has-story .scene-step.is-active .section-aside {
+    transition-delay: 0.14s;
+  }
+
+  .has-story .story-rail-item {
+    transform: translateX(10px);
+    transition: color 0.35s var(--ease), opacity 0.35s var(--ease),
+      background-color 0.35s var(--ease), transform 0.45s var(--ease);
+  }
+
+  .has-story .story-rail-item.is-active {
+    transform: translateX(0);
+  }
+
+  .has-story body[data-active-chapter^="01"],
+  .has-story body[data-active-chapter^="04"] {
+    --chapter-accent: var(--sand);
+  }
+
+  .has-story body[data-active-chapter^="02"],
+  .has-story body[data-active-chapter^="03"],
+  .has-story body[data-active-chapter^="05"],
+  .has-story body[data-active-chapter^="06"],
+  .has-story body[data-active-chapter^="07"] {
+    --chapter-accent: var(--orange);
+  }
+
+  .has-story body[data-active-chapter^="08"],
+  .has-story body[data-active-chapter^="09"] {
+    --chapter-accent: var(--sand-pale);
+  }
+
+  .has-story .story-rail-item.is-active {
+    color: var(--chapter-accent, var(--sand));
+  }
+
+  .has-story .result-stops {
+    position: relative;
+  }
+
+  .has-story .result-stops::before {
+    content: "";
+    position: absolute;
+    top: 18px;
+    bottom: 18px;
+    left: 13px;
+    width: 1px;
+    background: rgba(217, 130, 80, 0.55);
+    transform: scaleY(0);
+    transform-origin: top center;
+    transition: transform 0.65s var(--ease);
+    pointer-events: none;
+  }
+
+  .has-story .planner-result.is-updated .result-stops::before {
+    transform: scaleY(1);
+  }
+}
+
+@media (min-width: 1024px) {
+  @media (prefers-reduced-motion: no-preference) {
+    .has-story {
+      scroll-snap-type: y proximity;
+    }
+
+    .has-story .scene-step {
+      scroll-snap-align: start;
+      scroll-snap-stop: normal;
+    }
+  }
+}
