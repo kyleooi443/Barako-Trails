@@ -23,8 +23,16 @@
    ========================================================================== */
 
 /* ==========================================================================
-   01. Design tokens
+   01. Fonts & design tokens
    ========================================================================== */
+
+@font-face {
+  font-family: "Barabara";
+  src: url("../assets/fonts/barabara-final.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
 
 :root {
   /* Palette */
@@ -58,6 +66,7 @@
   /* Typography */
   --font-display: "Playfair Display", "Times New Roman", Georgia, serif;
   --font-body: "Barlow", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-hero: "Barabara", "Barlow", sans-serif;
 
   /* Layout */
   --gutter: clamp(20px, 4.2vw, 72px);
@@ -619,20 +628,18 @@ body.nav-open .menu-toggle span:nth-child(3) {
 }
 
 .hero-title {
-  margin-top: clamp(20px, 3.4vh, 36px);
-  font-family: var(--font-display);
-  font-size: clamp(3.4rem, 9.4vw, 9rem);
+  margin-top: calc(clamp(20px, 3.4vh, 36px) + 0.2em);
+  padding-top: 0.2em;
+  font-family: var(--font-hero);
+  font-size: clamp(3.4rem, 7vw, 6.8rem);
   font-weight: 400;
-  line-height: 0.9;
-  letter-spacing: -0.04em;
+  line-height: 1.05;
   text-transform: uppercase;
   text-wrap: balance;
 }
 
 .hero-line {
   display: block;
-  overflow: hidden;
-  padding-bottom: 0.055em;
 }
 
 .hero-line-inner {
@@ -642,13 +649,12 @@ body.nav-open .menu-toggle span:nth-child(3) {
 .hero-title em {
   color: var(--sand);
   font-weight: 400;
-  font-style: italic;
-  letter-spacing: -0.03em;
+  font-style: normal;
 }
 
 .hero-desc {
   max-width: 56ch;
-  margin-top: clamp(24px, 4vh, 40px);
+  margin-top: calc(clamp(24px, 4vh, 40px) - clamp(0.64rem, 1.32vw, 1.28rem));
   color: var(--light-85);
   font-size: clamp(0.92rem, 1vw, 1.04rem);
   line-height: 1.75;
@@ -2611,10 +2617,6 @@ dialog::backdrop {
 
 /* ---- Tablet landscape / small laptop ---- */
 @media (max-width: 1180px) {
-  .hero-title {
-    font-size: clamp(3.2rem, 9.4vw, 7.6rem);
-  }
-
   .intro-copy {
     grid-column: 8 / span 5;
   }
@@ -2661,10 +2663,6 @@ dialog::backdrop {
 @media (max-width: 1024px) {
   :root {
     --section-y: clamp(78px, 9vw, 120px);
-  }
-
-  .hero-title {
-    font-size: clamp(3rem, 9.2vw, 6.4rem);
   }
 
   .hero-desc {
@@ -2955,11 +2953,6 @@ dialog::backdrop {
     padding-bottom: 72px;
   }
 
-  .hero-title {
-    font-size: clamp(2.7rem, 11.5vw, 5rem);
-    line-height: 0.94;
-  }
-
   .hero-desc {
     max-width: 46ch;
   }
@@ -3246,10 +3239,6 @@ dialog::backdrop {
 
 /* ---- Small phone ---- */
 @media (max-width: 480px) {
-  .hero-title {
-    font-size: clamp(2.7rem, 11.5vw, 4.6rem);
-  }
-
   .hero-eyebrow {
     font-size: 0.55rem;
   }
