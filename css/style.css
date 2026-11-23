@@ -73,10 +73,6 @@
   --shell-max: 1440px;
   --section-y: clamp(88px, 9vw, 150px);
   --header-h: 82px;
-
-  /* Motion */
-  --ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ==========================================================================
@@ -410,7 +406,6 @@ address {
   z-index: 100;
   padding: 22px 0;
   color: var(--white);
-  transition: background-color 0.45s var(--ease), color 0.45s var(--ease), padding 0.45s var(--ease), box-shadow 0.45s var(--ease), backdrop-filter 0.45s var(--ease);
 }
 
 .site-header.is-scrolled {
@@ -466,14 +461,11 @@ address {
   color: var(--white);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(-14px);
-  transition: opacity 0.4s var(--ease), transform 0.4s var(--ease), visibility 0.3s;
 }
 
 body.nav-open .primary-nav {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
 }
 
 body.nav-open .site-header.is-scrolled,
@@ -483,7 +475,6 @@ body.nav-open .site-header {
   box-shadow: none;
   -webkit-backdrop-filter: none;
   backdrop-filter: none;
-  transition: background-color 0.45s var(--ease), color 0.45s var(--ease), padding 0.45s var(--ease), box-shadow 0.45s var(--ease), backdrop-filter 0s;
 }
 
 .nav-list {
@@ -499,7 +490,6 @@ body.nav-open .site-header {
   font-size: clamp(1.9rem, 4.6vw, 2.8rem);
   line-height: 1.15;
   letter-spacing: -0.02em;
-  transition: color 0.3s var(--ease);
 }
 
 .nav-link:hover,
@@ -518,7 +508,6 @@ body.nav-open .site-header {
   font-size: 0.6rem;
   font-weight: 500;
   text-transform: uppercase;
-  transition: background-color 0.3s var(--ease), color 0.3s var(--ease);
 }
 
 .nav-plan:hover {
@@ -556,7 +545,6 @@ body.nav-open .site-header {
   width: 24px;
   height: 1.5px;
   background: currentColor;
-  transition: transform 0.35s var(--ease), opacity 0.2s;
 }
 
 body.nav-open .menu-toggle span:nth-child(1) {
