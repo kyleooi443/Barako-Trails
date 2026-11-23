@@ -3858,6 +3858,92 @@ body.nav-open .menu-toggle span:nth-child(3) {
 }
 
 /* ==========================================================================
+   Small-screen readability & touch targets
+   ========================================================================== */
+
+@media (max-width: 640px) {
+  .hero-eyebrow,
+  .btn,
+  .section-label,
+  .intro-figure figcaption,
+  .stat-label,
+  .stats-note,
+  .filter,
+  .filter span,
+  .card-tag,
+  .card-location,
+  .text-link,
+  .tag-list li,
+  .culture-feature-index,
+  .culture-chapter-label,
+  .food-tag,
+  .food-note,
+  .food-footnote,
+  .guide-figure figcaption,
+  .best-time-label,
+  .planner-eyebrow,
+  .planner-field legend,
+  .chip-row label,
+  .result-kicker,
+  .result-sub,
+  .result-note,
+  .gallery-caption span,
+  .gallery-credit,
+  .closing-eyebrow,
+  .footer-column h3,
+  .placeholder-note,
+  .footer-bottom,
+  .nav-plan,
+  .scroll-cue,
+  .modal-tag,
+  .modal-location,
+  .modal-note,
+  .credits-list li,
+  .lightbox-counter {
+    font-size: 0.75rem;
+  }
+
+  .brand {
+    min-height: 44px;
+  }
+
+  .scroll-cue {
+    min-width: 44px;
+  }
+
+  .filter-bar {
+    overflow: visible;
+  }
+
+  .filters {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+
+  .filter {
+    flex-shrink: 1;
+    min-height: 44px;
+    padding: 10px 12px;
+  }
+
+  .card-title button {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .text-link {
+    min-height: 44px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
+  .season-tab {
+    min-height: 44px;
+  }
+}
+
+/* ==========================================================================
    Reduced motion & print
    ========================================================================== */
 
