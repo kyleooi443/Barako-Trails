@@ -59,6 +59,26 @@ const { assert, createPage, check } = require('./helpers');
     assert.ok(later > first.progress, `${later} did not exceed ${first.progress}`);
   }));
 
+  const tallBounds = await page.evaluate(() => {
+    const step = document.querySelector('#destinations .scene-step--tall');
+    const rect = step.getBoundingClientRect();
+    return { top: rect.top + window.scrollY, height: rect.height };
+  });
+  await page.evaluate((top) => window.scrollTo({ top, behavior: 'instant' }), tallBounds.top + 200);
+  await page.waitForTimeout(900);
+
+  results.push(await check('tall step filling the viewport is active and readable', async () => {
+    const state = await page.evaluate(() => {
+      const step = document.querySelector('#destinations .scene-step--tall');
+      return {
+        active: step.classList.contains('is-active'),
+        opacity: Number(getComputedStyle(step).opacity)
+      };
+    });
+    assert.strictEqual(state.active, true, 'tall step was not active');
+    assert.ok(state.opacity > 0.9, `opacity was ${state.opacity}`);
+  }));
+
   results.push(await check('no console errors', async () => {
     assert.deepStrictEqual(consoleErrors, []);
   }));

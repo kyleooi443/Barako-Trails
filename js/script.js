@@ -272,13 +272,23 @@
     return (header ? header.offsetHeight : 76) + 14;
   }
 
+  /* Layout position without scroll-linked transforms still applied to scenes. */
+  function getDocumentTop(element) {
+    let top = 0;
+    let node = element;
+
+    while (node) {
+      top += node.offsetTop;
+      node = node.offsetParent;
+    }
+
+    return top;
+  }
+
   function scrollToElement(element) {
     if (!element) return;
 
-    const top =
-      element.getBoundingClientRect().top +
-      (window.scrollY || document.documentElement.scrollTop) -
-      getHeaderOffset();
+    const top = getDocumentTop(element) - getHeaderOffset();
 
     window.scrollTo({
       top: Math.max(0, top),

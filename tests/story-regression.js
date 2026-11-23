@@ -5,7 +5,7 @@ const { assert, createPage, check } = require('./helpers');
   const desktop = await createPage({ viewport: { width: 1440, height: 900 } });
   const page = desktop.page;
 
-  results.push(await check('all five destination filters are visible on a phone', async () => {
+  results.push(await check('all five destination filters are available', async () => {
     const state = await page.evaluate(() => {
       const buttons = Array.from(document.querySelectorAll('.filter'));
       return {
@@ -51,6 +51,30 @@ const { assert, createPage, check } = require('./helpers');
     );
   }));
 
+  results.push(await check('Plan a trip here lands the planner below the header', async () => {
+    const handoff = await createPage({ viewport: { width: 1440, height: 900 } });
+    await handoff.page.locator('[data-open-destination="taal"]').first().click();
+    await handoff.page.locator('#planFromDestination').click();
+    await handoff.page.waitForTimeout(1500);
+    const state = await handoff.page.evaluate(() => ({
+      top: Math.round(document.querySelector('#tripPlanner').getBoundingClientRect().top),
+      header: Math.round(document.querySelector('#siteHeader').offsetHeight)
+    }));
+    assert.ok(state.top >= state.header + 5, `planner top ${state.top} sits under the ${state.header}px header`);
+    assert.ok(state.top <= 140, `planner top ${state.top} is too far below the header`);
+    assert.deepStrictEqual(handoff.consoleErrors, []);
+    await handoff.browser.close();
+  }));
+
+  results.push(await check('hero image keeps its descriptive alt text', async () => {
+    const hero = await page.locator('img[src*="hero-taal"]').first().evaluate((img) => ({
+      alt: img.getAttribute('alt') || '',
+      hidden: img.hasAttribute('aria-hidden')
+    }));
+    assert.ok(hero.alt.trim().length >= 8, 'hero alt missing');
+    assert.strictEqual(hero.hidden, false);
+  }));
+
   results.push(await check('lightbox opens, Next changes the counter, Close restores focus', async () => {
     const item = page.locator('.gallery-item').first();
     await item.click();
@@ -94,6 +118,18 @@ const { assert, createPage, check } = require('./helpers');
         }).length
       );
       assert.strictEqual(offscreen, 0);
+    }));
+
+    results.push(await check(`tall destination step is active at ${width}px`, async () => {
+      const top = await mobile.page.locator('#destinations .scene-step--tall').evaluate((el) =>
+        el.getBoundingClientRect().top + window.scrollY
+      );
+      await mobile.page.evaluate((y) => window.scrollTo({ top: y + 100, behavior: 'instant' }), top);
+      await mobile.page.waitForTimeout(800);
+      const active = await mobile.page.locator('#destinations .scene-step--tall').evaluate((el) =>
+        el.classList.contains('is-active')
+      );
+      assert.strictEqual(active, true);
     }));
 
     results.push(await check(`tap targets stay at least 40px at ${width}px`, async () => {

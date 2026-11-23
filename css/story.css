@@ -108,7 +108,7 @@
   display: none;
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 1440px) {
   .story-rail {
     position: fixed;
     top: 50%;
@@ -125,26 +125,38 @@
   }
 
   .story-rail-item {
-    padding: 2px 8px;
-    background: rgba(248, 248, 245, 0.1);
-    color: var(--light-50);
+    position: relative;
+    padding: 3px 9px;
+    overflow: hidden;
+    background: rgba(10, 39, 54, 0.78);
+    color: rgba(255, 255, 255, 0.82);
     font-family: var(--font-body);
     font-size: 11px;
     font-weight: 500;
     line-height: 1.4;
-    opacity: 0.5;
     text-align: right;
-    transition: color 0.35s var(--ease), opacity 0.35s var(--ease), background-color 0.35s var(--ease);
+    transition: color 0.35s var(--ease), background-color 0.35s var(--ease), transform 0.45s var(--ease);
   }
 
   .story-rail-item.is-active {
-    background: rgba(217, 130, 80, 0.16);
+    background: var(--ocean-deep);
     color: var(--sand);
-    opacity: 1;
+  }
+
+  .story-rail-item.is-active::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: var(--chapter-accent, var(--sand));
+    transform: scaleX(var(--active-progress, 0));
+    transform-origin: left center;
   }
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 1439px) {
   body::after {
     content: "";
     position: fixed;
@@ -212,8 +224,8 @@
 
   .has-story .story-rail-item {
     transform: translateX(10px);
-    transition: color 0.35s var(--ease), opacity 0.35s var(--ease),
-      background-color 0.35s var(--ease), transform 0.45s var(--ease);
+    transition: color 0.35s var(--ease), background-color 0.35s var(--ease),
+      transform 0.45s var(--ease);
   }
 
   .has-story .story-rail-item.is-active {
@@ -239,7 +251,21 @@
   }
 
   .has-story .story-rail-item.is-active {
-    color: var(--chapter-accent, var(--sand));
+    box-shadow: inset 2px 0 0 var(--chapter-accent, var(--sand));
+  }
+
+  .has-story .site-header::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background: var(--chapter-accent, transparent);
+    opacity: 0.7;
+    transform: scaleX(var(--active-progress, 0));
+    transform-origin: left center;
+    pointer-events: none;
   }
 
   .has-story .result-stops {

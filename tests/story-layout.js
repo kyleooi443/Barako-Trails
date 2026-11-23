@@ -30,7 +30,7 @@ const { assert, createPage, check, URL } = require('./helpers');
   }));
   await desktop.browser.close();
 
-  for (const width of [768, 390, 360]) {
+  for (const width of [1280, 1024, 768, 390, 360]) {
     const pageSet = await createPage({ viewport: { width, height: 900 } });
     results.push(await check(`chapter rail hidden at ${width}px`, async () => {
       assert.strictEqual(await pageSet.page.locator('.story-rail').isVisible(), false);

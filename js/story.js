@@ -55,19 +55,24 @@
   function update() {
     const viewportCenter = window.innerHeight / 2;
     let chapterAtCenter = '';
+    let progressAtCenter = 0;
 
     scenes.forEach((scene) => {
       const rect = scene.getBoundingClientRect();
       const progress = computeSceneProgress(scene);
       const steps = Array.from(scene.querySelectorAll('.scene-step'));
 
+      /* The step with the most visible area owns the scene. Center distance
+         only breaks ties, so tall grids stay readable when they fill the view. */
       let activeStep = 0;
-      let nearest = Infinity;
+      let bestScore = -Infinity;
       steps.forEach((step, index) => {
         const stepRect = step.getBoundingClientRect();
-        const distance = Math.abs(stepRect.top + stepRect.height / 2 - viewportCenter);
-        if (distance < nearest) {
-          nearest = distance;
+        const visible = Math.max(0, Math.min(stepRect.bottom, window.innerHeight) - Math.max(stepRect.top, 0));
+        const centerDistance = Math.abs(stepRect.top + stepRect.height / 2 - viewportCenter);
+        const score = visible - centerDistance / 10000;
+        if (score > bestScore) {
+          bestScore = score;
           activeStep = index;
         }
       });
@@ -76,6 +81,7 @@
 
       if (rect.top <= viewportCenter && rect.bottom >= viewportCenter) {
         chapterAtCenter = scene.dataset.chapter || '';
+        progressAtCenter = progress;
       }
     });
 
@@ -83,6 +89,7 @@
 
     const scrollable = Math.max(document.documentElement.scrollHeight - window.innerHeight, 1);
     document.body.style.setProperty('--story-progress', clamp(window.scrollY / scrollable, 0, 1).toFixed(4));
+    document.body.style.setProperty('--active-progress', progressAtCenter.toFixed(4));
 
     ticking = false;
   }
